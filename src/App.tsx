@@ -5,15 +5,13 @@ import Logout from "./components/logout";
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
-const ESP32_IP = "http://192.168.68.67";
-
 function App() {
   const clientID = import.meta.env.VITE_CLIENT_ID;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const sendCommand = (endpoint: string) => {
     axios
-      .get(`${ESP32_IP}/${endpoint}`)
+      .get(`${import.meta.env.VITE_HEROKU_SERVER_URL}/${endpoint}`)
       .then((response) => {
         console.log(response.data);
         alert(response.data);

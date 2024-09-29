@@ -23,6 +23,7 @@ jobs:
       - name: Build project
         env:
           VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+          VITE_HEROKU_SERVER_URL: ${{ secrets.VITE_HEROKU_SERVER_URL }}
         run: npm run build
 
       - name: Upload production-ready build files
