@@ -4,10 +4,18 @@ import Login from "./components/login";
 import Logout from "./components/logout";
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
+import lilyHappy from "./assets/lily_happy.gif";
+import lilySad from "./assets/lily_sad.gif";
 
 function App() {
   const clientID = import.meta.env.VITE_CLIENT_ID;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [sensorData, setSensorData] = useState<{
+    temp: number;
+    hum: number;
+    co2: number;
+    voc: number;
+  } | null>(null);
 
   const sendCommand = (endpoint: string) => {
     axios
@@ -21,6 +29,17 @@ function App() {
       });
   };
 
+  const fetchSensorData = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_HEROKU_SERVER_URL}/sensor-data`
+      );
+      setSensorData(response.data); // Update state with the received data
+    } catch (error) {
+      console.error("Error fetching sensor data:", error);
+    }
+  };
+
   useEffect(() => {
     function start() {
       gapi.client.init({
@@ -30,7 +49,16 @@ function App() {
     }
 
     gapi.load("client:auth2", start);
-  }, []);
+
+    if (isLoggedIn) {
+      const interval = setInterval(() => {
+        fetchSensorData(); // Fetch sensor data every minute or adjust as needed
+      }, 60000); // 60,000 milliseconds = 1 minute
+
+      // Cleanup the interval on component unmount
+      return () => clearInterval(interval);
+    }
+  }, [isLoggedIn]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleLoginSuccess = (response: any) => {
@@ -58,7 +86,29 @@ function App() {
             )}
           </div>
         </div>
-
+        <div className="w-4/5 flex justify-center items-center">
+          {sensorData && (sensorData.co2 > 900 || sensorData.voc > 300) ? (
+            <div className="w-4/5 h-20 flex justify-center items-center">
+              <img src={lilySad} alt="a pixel sprite gif of a happy cat" />
+            </div>
+          ) : (
+            <div className="w-4/5 h-20 flex justify-center items-center">
+              <img src={lilyHappy} alt="a pixel sprite gif of a sad cat" />
+            </div>
+          )}
+        </div>
+        <div className="w-4/5 flex flex-col justify-center items-center">
+          <span className="flex flex-row justify-between items-center mb-4 w-full">
+            <p className="text-snow-storm-100">CO2 | {sensorData?.co2}ppm</p>
+            <p className="text-snow-storm-100">TMP | {sensorData?.temp}°C</p>
+          </span>
+          <span className="flex flex-row justify-between items-center w-full">
+            <p className="text-snow-storm-100">VOC | {sensorData?.voc}ppb</p>
+            <p className="text-snow-storm-100">
+              HUM | {sensorData?.hum.toFixed(1)}%
+            </p>
+          </span>
+        </div>
         {/* content to be conditionally rendered */}
         {isLoggedIn && (
           <div className="flex flex-row flex-wrap justify-center items-start gap-4 sm: flex-col w-4/5">
@@ -79,21 +129,21 @@ function App() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={() => sendCommand("fanLow")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
               >
-                Fan Low
+                Fan 1
               </button>
               <button
                 onClick={() => sendCommand("fanMed")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
               >
-                Fan Med
+                Fan 2
               </button>
               <button
                 onClick={() => sendCommand("fanHigh")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
               >
-                Fan High
+                Fan 3
               </button>
             </div>
             <div className="flex flex-row gap-4">
