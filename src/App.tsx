@@ -22,7 +22,6 @@ function App() {
       .get(`${import.meta.env.VITE_HEROKU_SERVER_URL}/${endpoint}`)
       .then((response) => {
         console.log(response.data);
-        alert(response.data);
       })
       .catch((error) => {
         console.error("There was an error sending the command!", error);
