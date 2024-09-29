@@ -11,7 +11,7 @@ function App() {
 
   const sendCommand = (endpoint: string) => {
     axios
-      .get(`${import.meta.env.VITE_HEROKU_SERVER_URL}${endpoint}`)
+      .get(`${import.meta.env.VITE_HEROKU_SERVER_URL}/${endpoint}`)
       .then((response) => {
         console.log(response.data);
         alert(response.data);
