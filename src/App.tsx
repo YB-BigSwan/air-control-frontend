@@ -40,6 +40,9 @@ function App() {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const test: string = "blah";
+
   useEffect(() => {
     function start() {
       gapi.client.init({
