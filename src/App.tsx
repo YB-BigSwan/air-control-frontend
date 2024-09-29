@@ -51,6 +51,7 @@ function App() {
     gapi.load("client:auth2", start);
 
     if (isLoggedIn) {
+      fetchSensorData();
       const interval = setInterval(() => {
         fetchSensorData(); // Fetch sensor data every minute or adjust as needed
       }, 60000); // 60,000 milliseconds = 1 minute
