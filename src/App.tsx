@@ -73,12 +73,12 @@ function App() {
 
   return (
     <div className="w-dvw h-dvh bg-frost-300 flex justify-center items-center">
-      <div className="max-w-sm h-4/5 bg-polar-night-400 rounded-lg flex flex-col justify-around items-center gap-5 sm: w-5/6">
+      <div className="max-w-sm h-4/5 bg-polar-night-400 rounded-lg flex flex-col justify-around items-center gap-5 sm: w-5/6 h-5/6">
         <div className="flex flex-row w-4/5 justify-between sm: text-xl flex-col gap-4">
-          <h1 className="text-snow-storm-100 font-semibold text-4xl">
+          <h1 className="text-snow-storm-100 font-semibold text-4xl sm: text-3xl">
             AC Control Panel
           </h1>
-          <div>
+          <div className="sm: h-2">
             {!isLoggedIn ? (
               <Login onSuccess={handleLoginSuccess} />
             ) : (
@@ -98,7 +98,7 @@ function App() {
           )}
         </div>
         <div className="w-4/5 flex flex-col justify-center items-center">
-          <span className="flex flex-row justify-between items-center mb-4 w-full">
+          <span className="flex flex-row justify-between items-center mb-4 w-full sm: mb-2">
             <p className="text-snow-storm-100">CO2 | {sensorData?.co2}ppm</p>
             <p className="text-snow-storm-100">TMP | {sensorData?.temp}°C</p>
           </span>
@@ -115,13 +115,13 @@ function App() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={() => sendCommand("poweron")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 Power ON
               </button>
               <button
                 onClick={() => sendCommand("poweroff")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 Power OFF
               </button>
@@ -129,19 +129,19 @@ function App() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={() => sendCommand("fanLow")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap sm: pt-1 pb-1"
               >
                 Fan 1
               </button>
               <button
                 onClick={() => sendCommand("fanMed")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap sm: pt-1 pb-1"
               >
                 Fan 2
               </button>
               <button
                 onClick={() => sendCommand("fanHigh")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet text-nowrap sm: pt-1 pb-1"
               >
                 Fan 3
               </button>
@@ -149,19 +149,19 @@ function App() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={() => sendCommand("20c")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 20°C
               </button>
               <button
                 onClick={() => sendCommand("18c")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 18°C
               </button>
               <button
                 onClick={() => sendCommand("16c")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 16°C
               </button>
@@ -169,13 +169,13 @@ function App() {
             <div className="flex flex-row gap-4">
               <button
                 onClick={() => sendCommand("swingon")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 Swing ON
               </button>
               <button
                 onClick={() => sendCommand("swingoff")}
-                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet"
+                className="bg-frost-300 text-polar-night-400 pt-2 pb-2 pr-4 pl-4 rounded-md border-2 border-frost-300 hover:border-n-violet sm: pt-1 pb-1"
               >
                 Swing OFF
               </button>
