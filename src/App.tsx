@@ -75,7 +75,7 @@ function App() {
     <div className="w-dvw h-dvh bg-frost-300 flex justify-center items-center">
       <div className="max-w-sm h-4/5 bg-polar-night-400 rounded-lg flex flex-col justify-around items-center gap-5 sm: w-5/6 h-5/6">
         <div className="flex flex-row w-4/5 justify-between sm: text-xl flex-col gap-4">
-          <h1 className="text-snow-storm-100 font-semibold text-4xl sm: text-3xl">
+          <h1 className="text-snow-storm-100 font-semibold text-4xl sm: text-2xl">
             AC Control Panel
           </h1>
           <div className="sm: h-2">
